@@ -63,6 +63,13 @@ brpc_proto_library(
     proto_deps = [],
 )
 
+brpc_proto_library(
+    name = "cc_ub_performance_proto",
+    srcs = ["ub_performance/test.proto"],
+    include = "ub_performance",
+    proto_deps = [],
+)
+
 cc_binary(
     name = "echo_c++_server",
     srcs = [
@@ -149,6 +156,36 @@ cc_binary(
     ],
     deps = [
         ":cc_ubring_performance_proto",
+        "//:brpc",
+    ],
+)
+
+cc_binary(
+    name = "ub_performance_server",
+    srcs = [
+        "ub_performance/server.cpp",
+    ],
+    copts = COPTS,
+    includes = [
+        "ub_performance",
+    ],
+    deps = [
+        ":cc_ub_performance_proto",
+        "//:brpc",
+    ],
+)
+
+cc_binary(
+    name = "ub_performance_client",
+    srcs = [
+        "ub_performance/client.cpp",
+    ],
+    copts = COPTS,
+    includes = [
+        "ub_performance",
+    ],
+    deps = [
+        ":cc_ub_performance_proto",
         "//:brpc",
     ],
 )
